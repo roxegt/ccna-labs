@@ -131,6 +131,5 @@ show ip interface brief
 ---
 
 ## 👤 Autor
-
-**ROX_LIZ**
+Roxana Garat
  
