@@ -132,5 +132,5 @@ show ip interface brief
 
 ## 👤 Autor
 
-**[Tu nombre]**
-[LinkedIn](https://linkedin.com/in/tu-perfil) · [GitHub](https://github.com/tu-usuario)
+**ROX_LIZ**
+ 
