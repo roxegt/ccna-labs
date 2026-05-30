@@ -82,6 +82,7 @@ banner motd #
   ACCESO RESTRINGIDO - Solo personal autorizado
 =========================================
 #
+###
 
 no ip domain-lookup
 
