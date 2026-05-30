@@ -13,20 +13,6 @@ Cada lab incluye topología, configuraciones completas y verificación de result
 
 ## Estructura del repositorio
 
-ccna-routing-labs/
-├── README.md
-├── 01-static-routing/
-│   ├── README.md
-│   ├── topology.png
-│   ├── lab.pkt
-│   └── configs/
-│       ├── R1.txt
-│       └── R2.txt
-├── 02-default-route/
-├── ...
-└── assets/
-    └── topologies/
-
 Cada carpeta contiene:
 
 - `README.md` — objetivo, topología, comandos y verificación
