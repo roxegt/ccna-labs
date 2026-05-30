@@ -7,13 +7,6 @@ La conectividad end-to-end (PC1 → PC2) se completa en el Lab 02 con rutas est�
 
 ## Topología
 
-PC1 ── [R1] ──────────── [R2] ──────────── [R3] ── PC2
-       Gi0/0  Se0/0/0  Se0/0/0  Se0/0/1  Se0/0/0  Gi0/0
-
-       192.168.1.0/24   10.0.12.0/30   10.0.23.0/30   192.168.2.0/24
-
-Los enlaces seriales usan /30 — práctica estándar para enlaces punto a punto (solo 2 hosts útiles por segmento).
-
 | Dispositivo | Interfaz | IP           | Máscara         |
 |-------------|----------|--------------|-----------------|
 | R1          | Gi0/0    | 192.168.1.1  | 255.255.255.0   |
