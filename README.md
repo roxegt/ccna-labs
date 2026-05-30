@@ -68,14 +68,6 @@ Cada lab tiene su propia topología, configuraciones completas y sección de ver
 
 
 
-## Progreso
-
-![Labs completados](https://img.shields.io/badge/labs%20completados-0%2F22-red)
-![Herramienta](https://img.shields.io/badge/herramienta-Packet%20Tracer-blue)
-![Certificación](https://img.shields.io/badge/certificación-CCNA%20200--301-1ba0d7)
-
-
-
 ## Autor
 
 Roxana Garat  
