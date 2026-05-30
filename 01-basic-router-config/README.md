@@ -8,12 +8,10 @@ La conectividad end-to-end (PC1 → PC2) se completa en el Lab 02 con rutas est�
 
 ## Topología
 
-```
 PC1 ── [R1] ──────────── [R2] ──────────── [R3] ── PC2
        Gi0/0  Se0/0/0  Se0/0/0  Se0/0/1  Se0/0/0  Gi0/0
 
        192.168.1.0/24   10.0.12.0/30   10.0.23.0/30   192.168.2.0/24
-```
 
 Los enlaces seriales usan /30 — práctica estándar para enlaces punto a punto (solo 2 hosts útiles por segmento).
 
@@ -34,7 +32,6 @@ Los enlaces seriales usan /30 — práctica estándar para enlaces punto a punto
 
 ### R1
 
-```
 enable
 configure terminal
 
@@ -71,11 +68,11 @@ interface Serial0/0/0
 
 end
 write memory
-```
+
 
 ### R2
 
-```
+
 enable
 configure terminal
 
@@ -112,11 +109,11 @@ interface Serial0/0/1
 
 end
 write memory
-```
+
 
 ### R3
 
-```
+
 enable
 configure terminal
 
@@ -152,7 +149,7 @@ interface GigabitEthernet0/0
 
 end
 write memory
-```
+
 
 ---
 
@@ -160,36 +157,28 @@ write memory
 
 **Estado de interfaces**
 
-```
 R1# show ip interface brief
-```
 
 Todas las interfaces configuradas deben aparecer en `up/up`. Si el protocolo está `down`, revisar `clock rate` en el lado DCE del enlace serial.
 
 **Conectividad entre adyacentes**
 
-```
 R1# ping 10.0.12.2
 R2# ping 10.0.23.2
-```
 
 Resultado esperado: `!!!!!`
 
 **Configuración guardada**
 
-```
 R1# show running-config
 R1# show startup-config
-```
 
 Confirmar que hostname, interfaces, contraseñas y banner están presentes en ambas.
 
 **Descubrimiento de vecinos con CDP**
 
-```
 R1# show cdp neighbors
 R1# show cdp neighbors detail
-```
 
 R1 debe ver a R2 en `Se0/0/0`. Si no aparece, el enlace no está activo a nivel L2.
 
