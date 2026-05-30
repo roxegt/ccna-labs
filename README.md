@@ -92,7 +92,7 @@ Cada carpeta contiene:
 
 ## Comandos de verificación frecuentes
 
-```bash
+
 # Tabla de rutas
 show ip route
 show ip route ospf
@@ -114,7 +114,7 @@ traceroute <ip>
 show ip interface brief
 
 
-## 📌 Progreso
+## Progreso
 
 ![Labs completados](https://img.shields.io/badge/labs%20completados-0%2F22-red)
 ![Herramienta](https://img.shields.io/badge/herramienta-Packet%20Tracer-blue)
