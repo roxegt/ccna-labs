@@ -4,18 +4,15 @@ Colección de laboratorios prácticos de networking enfocados en protocolos de r
 
 Cada lab incluye topología, configuraciones completas y verificación de resultados.
 
----
-
 ## 🛠️ Herramientas utilizadas
 
 - [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer) — simulador de redes
 - [Cisco NetAcad](https://www.netacad.com/) — plataforma de aprendizaje
 
----
+
 
 ## 📁 Estructura del repositorio
 
-```
 ccna-routing-labs/
 ├── README.md
 ├── 01-static-routing/
@@ -29,7 +26,6 @@ ccna-routing-labs/
 ├── ...
 └── assets/
     └── topologies/
-```
 
 Cada carpeta contiene:
 
@@ -38,7 +34,6 @@ Cada carpeta contiene:
 - `lab.pkt` — archivo de Packet Tracer
 - `configs/` — configuraciones exportadas de cada dispositivo
 
----
 
 ## 📋 Índice de laboratorios
 
@@ -94,7 +89,6 @@ Cada carpeta contiene:
 | 21 | [Redistribución OSPF ↔ EIGRP](./21-redistribution/) | `redistribute`, seed metric, rutas externas |
 | 22 | [Topología empresarial completa](./22-enterprise-topology/) | diseño jerárquico, troubleshooting end-to-end |
 
----
 
 ## ✅ Comandos de verificación frecuentes
 
@@ -118,9 +112,7 @@ show ip eigrp interfaces
 ping <ip>
 traceroute <ip>
 show ip interface brief
-```
 
----
 
 ## 📌 Progreso
 
@@ -128,7 +120,6 @@ show ip interface brief
 ![Herramienta](https://img.shields.io/badge/herramienta-Packet%20Tracer-blue)
 ![Certificación](https://img.shields.io/badge/certificación-CCNA%20200--301-1ba0d7)
 
----
 
 ## 👤 Autor
 Roxana Garat
