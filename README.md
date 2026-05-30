@@ -1,35 +1,42 @@
-# CCNA Routing Labs 
+# CCNA Routing Labs
 
-Colección de laboratorios prácticos de networking enfocados en protocolos de routing, desarrollados en **Cisco Packet Tracer** como parte de mi preparación para la certificación **CCNA (200-301)**.
+Colección de laboratorios prácticos de networking desarrollados en Cisco Packet Tracer. El foco está en protocolos de routing, partiendo desde configuración básica hasta redistribución entre protocolos.
 
-Cada lab incluye topología, configuraciones completas y verificación de resultados.
-
-## Herramientas utilizadas
-
-- [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer) — simulador de redes
-- [Cisco NetAcad](https://www.netacad.com/) — plataforma de aprendizaje
+Cada lab tiene su propia topología, configuraciones completas y sección de verificación.
 
 
 
-## Estructura del repositorio
+## Herramientas
 
-Cada carpeta contiene:
-
-- `README.md` — objetivo, topología, comandos y verificación
-- `topology.png` — diagrama de la red
-- `lab.pkt` — archivo de Packet Tracer
-- `configs/` — configuraciones exportadas de cada dispositivo
+- Cisco Packet Tracer
+- Cisco NetAcad
 
 
-## Índice de laboratorios
+## Estructura
 
-### Bloque 1 — Rutas Estáticas
+Cada carpeta sigue el mismo formato:
+
+```
+01-basic-router-config/
+├── README.md        — objetivo, topología, comandos y verificación
+├── topology.png     — diagrama de la red
+├── lab.pkt          — archivo de Packet Tracer
+└── configs/
+    ├── R1.txt
+    ├── R2.txt
+    └── R3.txt
+```
+
+
+## Labs
+
+### Bloque 1 — Rutas estáticas
 
 | # | Lab | Temas |
 |---|-----|-------|
-| 01 | [Configuración básica de routers](./01-basic-router-config/) | hostname, interfaces, CDP, verificación |
-| 02 | [Rutas estáticas simples](./02-static-routing/) | `ip route`, next-hop, exit interface |
-| 03 | [Ruta estática por defecto](./03-default-route/) | `0.0.0.0/0`, gateway of last resort |
+| 01 | [Configuración básica de routers](./01-basic-router-config/) | hostname, interfaces, CDP |
+| 02 | [Rutas estáticas simples](./02-static-routing/) | ip route, next-hop, exit interface |
+| 03 | [Ruta estática por defecto](./03-default-route/) | 0.0.0.0/0, gateway of last resort |
 | 04 | [Rutas estáticas flotantes](./04-floating-static/) | distancia administrativa, failover |
 | 05 | [Sumarización de rutas estáticas](./05-static-summary/) | summarization manual, CIDR |
 
@@ -37,67 +44,44 @@ Cada carpeta contiene:
 
 | # | Lab | Temas |
 |---|-----|-------|
-| 06 | [RIPv2 básico](./06-ripv2-basic/) | `network`, `no auto-summary`, versión 2 |
-| 07 | [RIPv2 con redistribución](./07-ripv2-redistribute/) | `redistribute static`, rutas externas |
-| 08 | [Estático vs RIP](./08-static-vs-rip/) | distancia administrativa, preferencia de ruta |
+| 06 | [RIPv2 básico](./06-ripv2-basic/) | network, no auto-summary |
+| 07 | [RIPv2 con redistribución](./07-ripv2-redistribute/) | redistribute static |
+| 08 | [Estático vs RIP](./08-static-vs-rip/) | distancia administrativa |
 
 ### Bloque 3 — OSPF Single Area
 
 | # | Lab | Temas |
 |---|-----|-------|
-| 09 | [OSPF área 0 básico](./09-ospf-single-area/) | `router-id`, `network`, área backbone |
-| 10 | [OSPF DR/BDR](./10-ospf-dr-bdr/) | elección DR, prioridad, `passive-interface` |
-| 11 | [OSPF ruta por defecto](./11-ospf-default-route/) | `default-information originate` |
-| 12 | [OSPF métricas y costo](./12-ospf-cost/) | `bandwidth`, `auto-cost reference-bandwidth` |
-| 13 | [OSPF autenticación MD5](./13-ospf-auth/) | `ip ospf authentication message-digest` |
+| 09 | [OSPF área 0 básico](./09-ospf-single-area/) | router-id, network, área backbone |
+| 10 | [OSPF DR/BDR](./10-ospf-dr-bdr/) | elección DR, prioridad, passive-interface |
+| 11 | [OSPF ruta por defecto](./11-ospf-default-route/) | default-information originate |
+| 12 | [OSPF métricas y costo](./12-ospf-cost/) | bandwidth, auto-cost reference-bandwidth |
+| 13 | [OSPF autenticación MD5](./13-ospf-auth/) | ip ospf authentication message-digest |
 
 ### Bloque 4 — OSPF Multi Area
 
 | # | Lab | Temas |
 |---|-----|-------|
-| 14 | [OSPF multi-area básico](./14-ospf-multiarea/) | área backbone, ABR, LSA tipo 1/2/3 |
-| 15 | [OSPF rutas inter-área](./15-ospf-interarea/) | propagación de rutas entre áreas |
-| 16 | [OSPF Stub y Totally Stub](./16-ospf-stub/) | reducción de LSAs, rutas por defecto |
-| 17 | [OSPF NSSA](./17-ospf-nssa/) | `not-so-stubby-area`, LSA tipo 7 |
+| 14 | [OSPF multi-area básico](./14-ospf-multiarea/) | ABR, LSA tipo 1/2/3 |
+| 15 | [OSPF rutas inter-área](./15-ospf-interarea/) | propagación entre áreas |
+| 16 | [OSPF Stub y Totally Stub](./16-ospf-stub/) | reducción de LSAs |
+| 17 | [OSPF NSSA](./17-ospf-nssa/) | not-so-stubby-area, LSA tipo 7 |
 
 ### Bloque 5 — EIGRP
 
 | # | Lab | Temas |
 |---|-----|-------|
-| 18 | [EIGRP básico](./18-eigrp-basic/) | AS number, `network`, algoritmo DUAL |
-| 19 | [EIGRP sucesores](./19-eigrp-successors/) | successor, feasible successor, `show ip eigrp topology` |
-| 20 | [EIGRP sumarización](./20-eigrp-summary/) | `ip summary-address eigrp` |
+| 18 | [EIGRP básico](./18-eigrp-basic/) | AS number, network, DUAL |
+| 19 | [EIGRP sucesores](./19-eigrp-successors/) | successor, feasible successor |
+| 20 | [EIGRP sumarización](./20-eigrp-summary/) | ip summary-address eigrp |
 
-### Bloque 6 — Integración y troubleshooting
+### Bloque 6 — Integración
 
 | # | Lab | Temas |
 |---|-----|-------|
-| 21 | [Redistribución OSPF ↔ EIGRP](./21-redistribution/) | `redistribute`, seed metric, rutas externas |
-| 22 | [Topología empresarial completa](./22-enterprise-topology/) | diseño jerárquico, troubleshooting end-to-end |
+| 21 | [Redistribución OSPF ↔ EIGRP](./21-redistribution/) | redistribute, seed metric |
+| 22 | [Topología empresarial completa](./22-enterprise-topology/) | diseño jerárquico, troubleshooting |
 
-
-## Comandos de verificación frecuentes
-
-
-# Tabla de rutas
-show ip route
-show ip route ospf
-show ip route eigrp
-
-# OSPF
-show ip ospf neighbor
-show ip ospf interface
-show ip ospf database
-
-# EIGRP
-show ip eigrp neighbors
-show ip eigrp topology
-show ip eigrp interfaces
-
-# General
-ping <ip>
-traceroute <ip>
-show ip interface brief
 
 
 ## Progreso
@@ -107,6 +91,8 @@ show ip interface brief
 ![Certificación](https://img.shields.io/badge/certificación-CCNA%20200--301-1ba0d7)
 
 
-## 👤 Autor
-Roxana Garat
- 
+
+## Autor
+
+Roxana Garat  
+[GitHub](https://github.com/roxegt)
