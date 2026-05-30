@@ -1,4 +1,4 @@
-# 🌐 CCNA Routing Labs — Portafolio
+# 🌐 CCNA Routing Labs 
 
 Colección de laboratorios prácticos de networking enfocados en protocolos de routing, desarrollados en **Cisco Packet Tracer** como parte de mi preparación para la certificación **CCNA (200-301)**.
 
