@@ -1,0 +1,36 @@
+enable
+configure terminal
+
+hostname R2
+
+enable secret cisco123
+line console 0
+ password cisco
+ login
+ logging synchronous
+line vty 0 4
+ password cisco
+ login
+exit
+
+banner motd #
+=========================================
+  ACCESO RESTRINGIDO - Solo personal autorizado
+=========================================
+#
+
+no ip domain-lookup
+
+interface Serial0/0/0
+ description ENLACE-R2-R1
+ ip address 10.0.12.2 255.255.255.252
+ no shutdown
+
+interface Serial0/0/1
+ description ENLACE-R2-R3
+ ip address 10.0.23.1 255.255.255.252
+ clock rate 128000
+ no shutdown
+
+end
+write memory

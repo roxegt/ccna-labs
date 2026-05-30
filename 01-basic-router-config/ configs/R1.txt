@@ -1,0 +1,37 @@
+enable
+configure terminal
+
+hostname R1
+
+enable secret cisco123
+line console 0
+ password cisco
+ login
+ logging synchronous
+line vty 0 4
+ password cisco
+ login
+exit
+
+banner motd #
+=========================================
+  ACCESO RESTRINGIDO - Solo personal autorizado
+=========================================
+#
+
+no ip domain-lookup
+
+! Interfaces
+interface GigabitEthernet0/0
+ description LAN-PC1
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+
+interface Serial0/0/0
+ description ENLACE-R1-R2
+ ip address 10.0.12.1 255.255.255.252
+ clock rate 128000
+ no shutdown
+
+end
+write memory
