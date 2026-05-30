@@ -1,17 +1,17 @@
-# 🌐 CCNA Routing Labs 
+# CCNA Routing Labs 
 
 Colección de laboratorios prácticos de networking enfocados en protocolos de routing, desarrollados en **Cisco Packet Tracer** como parte de mi preparación para la certificación **CCNA (200-301)**.
 
 Cada lab incluye topología, configuraciones completas y verificación de resultados.
 
-## 🛠️ Herramientas utilizadas
+## Herramientas utilizadas
 
 - [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer) — simulador de redes
 - [Cisco NetAcad](https://www.netacad.com/) — plataforma de aprendizaje
 
 
 
-## 📁 Estructura del repositorio
+## Estructura del repositorio
 
 ccna-routing-labs/
 ├── README.md
@@ -35,9 +35,9 @@ Cada carpeta contiene:
 - `configs/` — configuraciones exportadas de cada dispositivo
 
 
-## 📋 Índice de laboratorios
+## Índice de laboratorios
 
-### 🔵 Bloque 1 — Rutas Estáticas
+### Bloque 1 — Rutas Estáticas
 
 | # | Lab | Temas |
 |---|-----|-------|
@@ -47,7 +47,7 @@ Cada carpeta contiene:
 | 04 | [Rutas estáticas flotantes](./04-floating-static/) | distancia administrativa, failover |
 | 05 | [Sumarización de rutas estáticas](./05-static-summary/) | summarization manual, CIDR |
 
-### 🟡 Bloque 2 — RIPv2
+### Bloque 2 — RIPv2
 
 | # | Lab | Temas |
 |---|-----|-------|
@@ -55,7 +55,7 @@ Cada carpeta contiene:
 | 07 | [RIPv2 con redistribución](./07-ripv2-redistribute/) | `redistribute static`, rutas externas |
 | 08 | [Estático vs RIP](./08-static-vs-rip/) | distancia administrativa, preferencia de ruta |
 
-### 🟠 Bloque 3 — OSPF Single Area
+### Bloque 3 — OSPF Single Area
 
 | # | Lab | Temas |
 |---|-----|-------|
@@ -65,7 +65,7 @@ Cada carpeta contiene:
 | 12 | [OSPF métricas y costo](./12-ospf-cost/) | `bandwidth`, `auto-cost reference-bandwidth` |
 | 13 | [OSPF autenticación MD5](./13-ospf-auth/) | `ip ospf authentication message-digest` |
 
-### 🔴 Bloque 4 — OSPF Multi Area
+### Bloque 4 — OSPF Multi Area
 
 | # | Lab | Temas |
 |---|-----|-------|
@@ -74,7 +74,7 @@ Cada carpeta contiene:
 | 16 | [OSPF Stub y Totally Stub](./16-ospf-stub/) | reducción de LSAs, rutas por defecto |
 | 17 | [OSPF NSSA](./17-ospf-nssa/) | `not-so-stubby-area`, LSA tipo 7 |
 
-### 🟣 Bloque 5 — EIGRP
+### Bloque 5 — EIGRP
 
 | # | Lab | Temas |
 |---|-----|-------|
@@ -82,7 +82,7 @@ Cada carpeta contiene:
 | 19 | [EIGRP sucesores](./19-eigrp-successors/) | successor, feasible successor, `show ip eigrp topology` |
 | 20 | [EIGRP sumarización](./20-eigrp-summary/) | `ip summary-address eigrp` |
 
-### ⚫ Bloque 6 — Integración y troubleshooting
+### Bloque 6 — Integración y troubleshooting
 
 | # | Lab | Temas |
 |---|-----|-------|
@@ -90,7 +90,7 @@ Cada carpeta contiene:
 | 22 | [Topología empresarial completa](./22-enterprise-topology/) | diseño jerárquico, troubleshooting end-to-end |
 
 
-## ✅ Comandos de verificación frecuentes
+## Comandos de verificación frecuentes
 
 ```bash
 # Tabla de rutas
