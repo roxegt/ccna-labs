@@ -4,7 +4,6 @@ Configuración inicial de tres routers en serie: hostname, contraseñas, interfa
 
 La conectividad end-to-end (PC1 → PC2) se completa en el Lab 02 con rutas estáticas.
 
----
 
 ## Topología
 
@@ -26,7 +25,6 @@ Los enlaces seriales usan /30 — práctica estándar para enlaces punto a punto
 | PC1         | NIC      | 192.168.1.10 | 255.255.255.0   |
 | PC2         | NIC      | 192.168.2.10 | 255.255.255.0   |
 
----
 
 ## Configuración
 
