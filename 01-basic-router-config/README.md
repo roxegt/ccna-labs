@@ -146,7 +146,6 @@ write memory
 
 ### 1. Estado de interfaces
 
-
 R1# show ip interface brief
 
 Resultado esperado
@@ -154,9 +153,6 @@ Resultado esperado
 Interface              IP-Address      OK? Method Status                Protocol
 GigabitEthernet0/0    192.168.1.1     YES manual up                    up
 Serial0/0/0           10.0.12.1       YES manual up                    up
-```
-
-
 
 ### 2. Conectividad entre routers adyacentes
 
