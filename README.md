@@ -11,25 +11,6 @@ Cada lab tiene su propia topología, configuraciones completas y sección de ver
 - Cisco Packet Tracer
 - Cisco NetAcad
 
----
-
-## Estructura
-
-Cada carpeta sigue el mismo formato:
-
-```
-01-basic-router-config/
-├── README.md        — objetivo, topología, comandos y verificación
-├── topology.png     — diagrama de la red
-├── lab.pkt          — archivo de Packet Tracer
-└── configs/
-    ├── R1.txt
-    ├── R2.txt
-    └── R3.txt
-```
-
----
-
 ## Labs
 
 ### Bloque 1 — Rutas estáticas
