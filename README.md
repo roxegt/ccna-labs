@@ -4,7 +4,6 @@ Colección de laboratorios prácticos de networking desarrollados en Cisco Packe
 
 Cada lab tiene su propia topología, configuraciones completas y sección de verificación.
 
-
 ## Herramientas
 
 - Cisco Packet Tracer
