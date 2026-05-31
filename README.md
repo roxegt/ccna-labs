@@ -4,7 +4,6 @@ Colección de laboratorios prácticos de networking desarrollados en Cisco Packe
 
 Cada lab tiene su propia topología, configuraciones completas y sección de verificación.
 
----
 
 ## Herramientas
 
@@ -65,7 +64,6 @@ Cada lab tiene su propia topología, configuraciones completas y sección de ver
 | 21 | [Redistribución OSPF ↔ EIGRP](./21-redistribution/) | redistribute, seed metric |
 | 22 | [Topología empresarial completa](./22-enterprise-topology/) | diseño jerárquico, troubleshooting |
 
----
 
 ## Progreso
 
@@ -73,7 +71,6 @@ Cada lab tiene su propia topología, configuraciones completas y sección de ver
 ![Herramienta](https://img.shields.io/badge/herramienta-Packet%20Tracer-blue)
 ![Certificación](https://img.shields.io/badge/certificación-CCNA%20200--301-1ba0d7)
 
----
 
 ## Autor
 
