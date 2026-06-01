@@ -4,16 +4,9 @@ RIP (Routing Information Protocol) es un protocolo de routing dinámico de vecto
 
 RIPv2 es la versión mejorada — soporta CIDR, VLSM y autenticación, a diferencia de RIPv1 que solo trabaja con clases.
 
----
 
 ## Topología
 
-```
-PC1 ── [R1] ──────────── [R2] ──────────── [R3] ── PC2
-       Gi0/0  Se0/0/0  Se0/0/0  Se0/0/1  Se0/0/0  Gi0/0
-
-       192.168.1.0/24   10.0.12.0/30   10.0.23.0/30   192.168.2.0/24
-```
 
 | Dispositivo | Interfaz | IP | Máscara |
 |---|---|---|---|
@@ -26,7 +19,6 @@ PC1 ── [R1] ──────────── [R2] ───────�
 | PC1 | NIC | 192.168.1.10 | 255.255.255.0 |
 | PC2 | NIC | 192.168.2.10 | 255.255.255.0 |
 
----
 
 ## Concepto
 
@@ -36,13 +28,11 @@ El comando `network` le indica a RIP qué interfaces participan en el proceso de
 
 `no auto-summary` es obligatorio en RIPv2 — sin esto el router resume automáticamente las redes a su clase natural (comportamiento de RIPv1) y puede causar problemas con subredes.
 
----
 
 ## Configuración
 
 ### R1
 
-```
 enable
 configure terminal
 
@@ -79,11 +69,10 @@ router rip
 
 end
 write memory
-```
+
 
 ### R2
 
-```
 enable
 configure terminal
 
@@ -119,11 +108,9 @@ router rip
 
 end
 write memory
-```
 
 ### R3
 
-```
 enable
 configure terminal
 
@@ -159,59 +146,44 @@ router rip
 
 end
 write memory
-```
 
----
 
 ## Verificación
 
 **Rutas aprendidas por RIP**
 
-```
 R1# show ip route rip
-```
 
 R1 debe ver las redes de R2 y R3 marcadas con `R`:
 
-```
 R    10.0.23.0/30 [120/1] via 10.0.12.2
 R    192.168.2.0/24 [120/2] via 10.0.12.2
-```
 
 El `[120/1]` indica distancia administrativa 120 (RIP) y métrica 1 salto. La red `192.168.2.0` tiene métrica 2 porque está a 2 saltos de R1.
 
 **Vecinos y actualizaciones RIP**
 
-```
 R1# debug ip rip
-```
+
 
 Muestra las actualizaciones RIP en tiempo real — se pueden ver los anuncios que envía y recibe cada router. Para detenerlo:
 
-```
 R1# undebug all
-```
 
 **Protocolo RIP activo**
 
-```
 R1# show ip protocols
-```
 
 Muestra la versión de RIP, redes anunciadas, vecinos y temporizadores.
 
 **Ping end-to-end**
 
-```
 PC1> ping 192.168.2.10
 PC2> ping 192.168.1.10
-```
 
 **Traceroute**
 
-```
 PC1> tracert 192.168.2.10
-```
 
 Debe mostrar 3 saltos: R1 → R2 → R3.
 
@@ -224,7 +196,6 @@ Debe mostrar 3 saltos: R1 → R2 → R3.
 | `debug ip rip` | Actualizaciones RIP en tiempo real |
 | `show ip route` | Tabla completa con rutas RIP marcadas con R |
 
----
 
 ## Notas
 
