@@ -109,7 +109,7 @@ exit
 
 no ip domain-lookup
 
-banner motd #
+## banner motd #
 =========================================
   ACCESO RESTRINGIDO - Solo personal autorizado
 =========================================
