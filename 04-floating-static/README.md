@@ -62,9 +62,9 @@ exit
 no ip domain-lookup
 
 ## banner motd #
-=========================================
-  ACCESO RESTRINGIDO - Solo personal autorizado
-=========================================
+## =========================================
+##  ACCESO RESTRINGIDO - Solo personal autorizado
+## =========================================
 #
 
 interface GigabitEthernet0/0
@@ -110,9 +110,9 @@ exit
 no ip domain-lookup
 
 ## banner motd #
-=========================================
-  ACCESO RESTRINGIDO - Solo personal autorizado
-=========================================
+## =========================================
+##  ACCESO RESTRINGIDO - Solo personal autorizado
+## =========================================
 #
 
 interface GigabitEthernet0/0
