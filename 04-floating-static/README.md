@@ -4,17 +4,10 @@ Una ruta estática flotante es una ruta de respaldo que solo se activa cuando la
 
 A diferencia de topologías con routers intermedios, este lab usa conexión directa entre R1 y R2 por dos enlaces seriales — así el failover es inmediato y real cuando cae el enlace principal.
 
----
 
 ## Topología
 
-```
-PC1 ── [R1-Sucursal] ══════════════════ [R2-HQ] ── PC2
-              Se0/0/0 ── 10.0.12.0/30 ── Se0/0/0   (enlace principal)
-              Se0/0/1 ── 10.0.13.0/30 ── Se0/0/1   (enlace respaldo)
-              Gi0/0                      Gi0/0
-         192.168.1.0/24            192.168.2.0/24
-```
+
 
 | Dispositivo | Interfaz | IP | Máscara |
 |---|---|---|---|
@@ -27,7 +20,6 @@ PC1 ── [R1-Sucursal] ══════════════════ 
 | PC1 | NIC | 192.168.1.10 | 255.255.255.0 |
 | PC2 | NIC | 192.168.2.10 | 255.255.255.0 |
 
----
 
 ## Concepto
 
@@ -42,17 +34,16 @@ La distancia administrativa (AD) indica qué tan confiable es una ruta. Valor m�
 
 Una ruta flotante usa una AD mayor que la ruta principal. Mientras la ruta principal esté activa, la flotante no aparece en la tabla de rutas. Cuando la principal cae, la flotante toma su lugar automáticamente.
 
-```
-ip route <red> <máscara> <next-hop> <distancia-administrativa>
-```
 
----
+ip route <red> <máscara> <next-hop> <distancia-administrativa>
+
+
+
 
 ## Configuración
 
 ### R1-Sucursal
 
-```
 enable
 configure terminal
 
@@ -98,11 +89,9 @@ ip route 192.168.2.0 255.255.255.0 10.0.13.2 5
 
 end
 write memory
-```
 
 ### R2-HQ
 
-```
 enable
 configure terminal
 
@@ -146,71 +135,51 @@ ip route 192.168.1.0 255.255.255.0 10.0.13.1 5
 
 end
 write memory
-```
 
----
 
 ## Verificación
 
 **Estado normal — ruta flotante no visible**
 
-```
 R1-Sucursal# show ip route
-```
 
 Solo aparece la ruta principal. La flotante está configurada pero oculta por tener AD mayor.
 
-```
 S    192.168.2.0/24 [1/0] via 10.0.12.2
-```
 
 **Ping normal antes del fallo**
 
-```
 PC1> ping 192.168.2.10
-```
 
 **Simular falla — apagar enlace principal en ambos lados**
 
-```
 R1-Sucursal(config)# interface Serial0/0/0
 R1-Sucursal(config-if)# shutdown
 
 R2-HQ(config)# interface Serial0/0/0
 R2-HQ(config-if)# shutdown
-```
 
 **Verificar que la flotante tomó el lugar**
 
-```
 R1-Sucursal# show ip route
-```
 
 Ahora aparece la ruta con AD 5:
 
-```
 S    192.168.2.0/24 [5/0] via 10.0.13.2
-```
 
 **Ping después del fallo — debe seguir funcionando**
 
-```
 PC1> ping 192.168.2.10
-```
 
 **Restaurar enlace principal**
 
-```
 R1-Sucursal(config)# interface Serial0/0/0
 R1-Sucursal(config-if)# no shutdown
 
 R2-HQ(config)# interface Serial0/0/0
 R2-HQ(config-if)# no shutdown
-```
 
-```
 R1-Sucursal# show ip route
-```
 
 La tabla vuelve a mostrar la ruta principal. La flotante desaparece.
 
@@ -222,7 +191,6 @@ La tabla vuelve a mostrar la ruta principal. La flotante desaparece.
 | `show ip route static` | Todas las estáticas incluyendo flotantes instaladas |
 | `show running-config \| include ip route` | Ver todas las rutas configuradas incluyendo flotantes ocultas |
 
----
 
 ## Notas
 
