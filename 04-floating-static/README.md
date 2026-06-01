@@ -1,134 +1,145 @@
-# Lab 04 — Rutas estáticas flotantes
-
+Lab 04 — Rutas estáticas flotantes
 Una ruta estática flotante es una ruta de respaldo que solo se activa cuando la ruta principal falla. Se logra asignándole una distancia administrativa mayor que la ruta primaria, de modo que normalmente queda oculta en la tabla de rutas y aparece solo cuando es necesaria.
+A diferencia de topologías con routers intermedios, este lab usa conexión directa entre R1 y R2 por dos enlaces seriales — así el failover es inmediato y real cuando cae el enlace principal.
 
+Topología
+PC1 ── [R1-Sucursal] ══════════════════ [R2-HQ] ── PC2
+              Se0/0/0 ── 10.0.12.0/30 ── Se0/0/0   (enlace principal)
+              Se0/0/1 ── 10.0.13.0/30 ── Se0/0/1   (enlace respaldo)
+              Gi0/0                      Gi0/0
+         192.168.1.0/24            192.168.2.0/24
+DispositivoInterfazIPMáscaraR1-SucursalGi0/0192.168.1.1255.255.255.0R1-SucursalSe0/0/010.0.12.1255.255.255.252R1-SucursalSe0/0/110.0.13.1255.255.255.252R2-HQSe0/0/010.0.12.2255.255.255.252R2-HQSe0/0/110.0.13.2255.255.255.252R2-HQGi0/0192.168.2.1255.255.255.0PC1NIC192.168.1.10255.255.255.0PC2NIC192.168.2.10255.255.255.0
 
-## Topología
-
-Dos caminos entre R1 y R3 — uno principal por R2 y uno de respaldo directo.
-
-
-| Dispositivo | Interfaz | IP          | Máscara         |
-|-------------|----------|-------------|-----------------|
-| R1          | Gi0/0    | 192.168.1.1 | 255.255.255.0   |
-| R1          | Se0/0/0  | 10.0.12.1   | 255.255.255.252 |
-| R1          | Se0/0/1  | 10.0.13.1   | 255.255.255.252 |
-| R2          | Se0/0/0  | 10.0.12.2   | 255.255.255.252 |
-| R2          | Se0/0/1  | 10.0.23.1   | 255.255.255.252 |
-| R3          | Se0/0/0  | 10.0.13.2   | 255.255.255.252 |
-| R3          | Se0/0/1  | 10.0.23.2   | 255.255.255.252 |
-| R3          | Gi0/0    | 192.168.2.1 | 255.255.255.0   |
-| PC1         | NIC      | 192.168.1.10| 255.255.255.0   |
-| PC2         | NIC      | 192.168.2.10| 255.255.255.0   |
-
-
-## Concepto
-
+Concepto
 La distancia administrativa (AD) indica qué tan confiable es una ruta. Valor más bajo = mayor preferencia.
-
-| Tipo de ruta | AD por defecto |
-|---|---|
-| Directamente conectada | 0 |
-| Estática normal | 1 |
-| OSPF | 110 |
-| RIP | 120 |
-
+Tipo de rutaAD por defectoDirectamente conectada0Estática normal1OSPF110RIP120
 Una ruta flotante usa una AD mayor que la ruta principal. Mientras la ruta principal esté activa, la flotante no aparece en la tabla de rutas. Cuando la principal cae, la flotante toma su lugar automáticamente.
-
 ip route <red> <máscara> <next-hop> <distancia-administrativa>
 
-## Configuración
+Configuración
+R1-Sucursal
+enable
+configure terminal
 
-### R1
+hostname R1-Sucursal
 
-Ruta principal hacia `192.168.2.0/24` por R2 (AD 1 por defecto):
+enable secret cisco123
+line console 0
+ password cisco
+ login
+ logging synchronous
+line vty 0 4
+ password cisco
+ login
+exit
 
-R1(config)# ip route 192.168.2.0 255.255.255.0 10.0.12.2
-R1(config)# ip route 10.0.23.0 255.255.255.252 10.0.12.2
+no ip domain-lookup
 
-Ruta flotante hacia `192.168.2.0/24` por enlace directo a R3 (AD 5):
+banner motd #
+=========================================
+  ACCESO RESTRINGIDO - Solo personal autorizado
+=========================================
+#
 
-R1(config)# ip route 192.168.2.0 255.255.255.0 10.0.13.2 5
-R1(config)# ip route 10.0.23.0 255.255.255.252 10.0.13.2 5
+interface GigabitEthernet0/0
+ description LAN-SUCURSAL
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
 
-Interfaz de respaldo:
+interface Serial0/0/0
+ description ENLACE-PRINCIPAL-R1-R2
+ ip address 10.0.12.1 255.255.255.252
+ clock rate 128000
+ no shutdown
 
-R1(config)# interface Serial0/0/1
-R1(config-if)# description RESPALDO-R1-R3
-R1(config-if)# ip address 10.0.13.1 255.255.255.252
-R1(config-if)# clock rate 128000
-R1(config-if)# no shutdown
+interface Serial0/0/1
+ description ENLACE-RESPALDO-R1-R2
+ ip address 10.0.13.1 255.255.255.252
+ clock rate 128000
+ no shutdown
 
-### R2
+ip route 192.168.2.0 255.255.255.0 10.0.12.2
+ip route 192.168.2.0 255.255.255.0 10.0.13.2 5
 
-R2(config)# ip route 192.168.1.0 255.255.255.0 10.0.12.1
-R2(config)# ip route 192.168.2.0 255.255.255.0 10.0.23.2
+end
+write memory
+R2-HQ
+enable
+configure terminal
 
-### R3
+hostname R2-HQ
 
-Ruta principal por R2 (AD 1):
+enable secret cisco123
+line console 0
+ password cisco
+ login
+ logging synchronous
+line vty 0 4
+ password cisco
+ login
+exit
 
-R3(config)# ip route 192.168.1.0 255.255.255.0 10.0.23.1
-R3(config)# ip route 10.0.12.0 255.255.255.252 10.0.23.1
+no ip domain-lookup
 
-Ruta flotante por enlace directo a R1 (AD 5):
+banner motd #
+=========================================
+  ACCESO RESTRINGIDO - Solo personal autorizado
+=========================================
+#
 
-R3(config)# ip route 192.168.1.0 255.255.255.0 10.0.13.1 5
-R3(config)# ip route 10.0.12.0 255.255.255.252 10.0.13.1 5
+interface GigabitEthernet0/0
+ description LAN-HQ
+ ip address 192.168.2.1 255.255.255.0
+ no shutdown
 
-R3(config)# interface Serial0/0/0
-R3(config-if)# description RESPALDO-R3-R1
-R3(config-if)# ip address 10.0.13.2 255.255.255.252
-R3(config-if)# no shutdown
+interface Serial0/0/0
+ description ENLACE-PRINCIPAL-R2-R1
+ ip address 10.0.12.2 255.255.255.252
+ no shutdown
 
-Guardar en todos:
+interface Serial0/0/1
+ description ENLACE-RESPALDO-R2-R1
+ ip address 10.0.13.2 255.255.255.252
+ no shutdown
+
+ip route 192.168.1.0 255.255.255.0 10.0.12.1
+ip route 192.168.1.0 255.255.255.0 10.0.13.1 5
 
 end
 write memory
 
-## Verificación
-
-**Estado normal — ruta flotante no visible**
-
-R1# show ip route
-
-Solo debe aparecer la ruta principal hacia `192.168.2.0/24` via `10.0.12.2`. La flotante no aparece porque tiene AD mayor.
-
-**Ping normal antes del fallo**
-
+Verificación
+Estado normal — ruta flotante no visible
+R1-Sucursal# show ip route
+Solo aparece la ruta principal. La flotante está configurada pero oculta por tener AD mayor.
+S    192.168.2.0/24 [1/0] via 10.0.12.2
+Ping normal antes del fallo
 PC1> ping 192.168.2.10
+Simular falla — apagar enlace principal en ambos lados
+R1-Sucursal(config)# interface Serial0/0/0
+R1-Sucursal(config-if)# shutdown
 
-**Simular falla — bajar la interfaz principal en R1**
-
-R1(config)# interface Serial0/0/0
-R1(config-if)# shutdown
-
-**Verificar que la flotante tomó el lugar**
-
-R1# show ip route
-
-Ahora debe aparecer la ruta hacia `192.168.2.0/24` via `10.0.13.2` con AD 5.
-
-**Ping después del fallo — debe seguir funcionando**
-
+R2-HQ(config)# interface Serial0/0/0
+R2-HQ(config-if)# shutdown
+Verificar que la flotante tomó el lugar
+R1-Sucursal# show ip route
+Ahora aparece la ruta con AD 5:
+S    192.168.2.0/24 [5/0] via 10.0.13.2
+Ping después del fallo — debe seguir funcionando
 PC1> ping 192.168.2.10
+Restaurar enlace principal
+R1-Sucursal(config)# interface Serial0/0/0
+R1-Sucursal(config-if)# no shutdown
 
-Si el ping sigue respondiendo, la ruta flotante está funcionando correctamente.
+R2-HQ(config)# interface Serial0/0/0
+R2-HQ(config-if)# no shutdown
+R1-Sucursal# show ip route
+La tabla vuelve a mostrar la ruta principal. La flotante desaparece.
+Tabla de comandos usados
+ComandoQué muestrashow ip routeTabla de rutas — confirma qué ruta está activashow ip route staticTodas las estáticas incluyendo flotantes instaladasshow running-config | include ip routeVer todas las rutas configuradas incluyendo flotantes ocultas
 
-**Restaurar el enlace principal**
+Notas
 
-R1(config)# interface Serial0/0/0
-R1(config-if)# no shutdown
-
-R1# show ip route
-
-La tabla vuelve a mostrar la ruta principal via R2. La flotante desaparece nuevamente.
-
-**Tabla de comandos usados**
-
-| Comando | Qué muestra |
-|---------|-------------|
-| `show ip route` | Tabla de rutas — confirma qué ruta está activa |
-| `show ip route static` | Todas las estáticas, incluyendo flotantes instaladas |
-| `show running-config \| include ip route` | Ver todas las rutas configuradas incluyendo las flotantes ocultas |
-| `interface Serial0/0/0` + `shutdown` | Simular falla del enlace principal |
+La ruta flotante no aparece en show ip route mientras la principal esté activa, pero sí en show running-config — siempre está configurada, solo que inactiva.
+Con rutas estáticas el failover solo se detecta cuando cae el enlace directamente conectado al router. Para detectar fallos en equipos intermedios se necesita un protocolo de routing dinámico como OSPF o EIGRP.
+El valor de AD para la flotante puede ser cualquier número mayor que la ruta principal. AD 5 funciona, pero también es común usar valores como 200 para dejar margen respecto a protocolos dinámicos.
