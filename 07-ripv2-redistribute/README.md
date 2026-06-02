@@ -42,16 +42,23 @@ hostname R-ISP
 no ip domain-lookup
 
 interface Serial0/0/0
+
 description ENLACE-ISP-R1
+
 ip address 10.0.1.2 255.255.255.252
+
 no shutdown
 
 interface Loopback0
+
 description SIMULACION-INTERNET
+
 ip address 209.165.200.1 255.255.255.0
+
 no shutdown
 
 ip route 192.168.1.0 255.255.255.0 10.0.1.1
+
 ip route 192.168.2.0 255.255.255.0 10.0.1.1
 
 end
