@@ -2,21 +2,9 @@
 
 La redistribución permite que un protocolo de routing anuncie rutas que aprendió de otra fuente — en este caso, RIP anunciará rutas estáticas a sus vecinos. Esto es útil cuando parte de la red usa rutas estáticas y otra parte usa routing dinámico.
 
----
 
 ## Topología
 
-```
-Internet (simulado)
-      |
-   [R-ISP] ── Lo0: 209.165.200.1/24
-      |
-   Se0/0/0  10.0.1.0/30
-      |
-   Se0/0/1 [R1] Se0/0/0 ──── 10.0.12.0/30 ──── Se0/0/0 [R2] Se0/0/1 ──── 10.0.23.0/30 ──── Se0/0/0 [R3]
-              Gi0/0                                          Gi0/0
-         192.168.1.0/24                                192.168.2.0/24
-```
 
 | Dispositivo | Interfaz | IP | Máscara |
 |---|---|---|---|
@@ -32,7 +20,6 @@ Internet (simulado)
 | PC1 | NIC | 192.168.1.10 | 255.255.255.0 |
 | PC2 | NIC | 192.168.2.10 | 255.255.255.0 |
 
----
 
 ## Concepto
 
@@ -42,13 +29,11 @@ Con `redistribute static`, R1 toma sus rutas estáticas y las inyecta en el proc
 
 Las rutas redistribuidas aparecen en la tabla con `R E` — R de RIP y E de external (externa al dominio RIP).
 
----
 
 ## Configuración
 
 ### R-ISP
 
-```
 enable
 configure terminal
 
@@ -71,11 +56,10 @@ ip route 192.168.2.0 255.255.255.0 10.0.1.1
 
 end
 write memory
-```
+
 
 ### R1
 
-```
 enable
 configure terminal
 
@@ -121,11 +105,9 @@ router rip
 
 end
 write memory
-```
 
 ### R2
 
-```
 enable
 configure terminal
 
@@ -167,11 +149,9 @@ router rip
 
 end
 write memory
-```
 
 ### R3
 
-```
 enable
 configure terminal
 
@@ -201,48 +181,35 @@ router rip
 
 end
 write memory
-```
-
----
 
 ## Verificación
 
 **Rutas redistribuidas en R2 y R3**
 
-```
 R2# show ip route rip
 R3# show ip route rip
-```
 
 R2 y R3 deben ver la ruta hacia `209.165.200.0/24` y la default route marcadas como `R` o `R*`:
 
-```
 R*   0.0.0.0/0 [120/1] via 10.0.12.1
 R    209.165.200.0/24 [120/1] via 10.0.12.1
-```
 
 **Verificar redistribución en R1**
 
-```
 R1# show ip protocols
-```
 
 Debe aparecer `Redistributing: static` en la sección de RIP.
 
 **Ping desde R3 hacia el ISP**
 
-```
 R3# ping 209.165.200.1
-```
 
 R3 no tiene ninguna ruta estática configurada — llega al ISP únicamente por la redistribución.
 
 **Ping end-to-end**
 
-```
 PC1> ping 192.168.2.10
 PC1> ping 209.165.200.1
-```
 
 **Tabla de comandos usados**
 
@@ -252,7 +219,6 @@ PC1> ping 209.165.200.1
 | `show ip protocols` | Confirma que la redistribución está activa |
 | `show ip route` | Tabla completa — buscar `R*` para la default redistributed |
 
----
 
 ## Notas
 
